@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../utils/database';
-import { Feedback, CreateFeedbackRequest, PrismaFeedback } from '../types/feedback';
-import { AppError } from '../middleware/errorHandler';
+import { Feedback, CreateFeedbackRequest, PrismaFeedback, FeedbackListResponse, CreateFeedbackResponse } from '../types/shared';
 
 export const getAllFeedback = async (
   req: Request,
@@ -22,10 +21,11 @@ export const getAllFeedback = async (
       createdAt: item.createdAt.toISOString(),
     }));
 
-    res.json({
+    const response: FeedbackListResponse = {
       success: true,
       data: formattedFeedback,
-    });
+    };
+    res.json(response);
   } catch (error) {
     next(error);
   }
@@ -53,11 +53,12 @@ export const createFeedback = async (
       createdAt: newFeedback.createdAt.toISOString(),
     };
 
-    res.status(201).json({
+    const response: CreateFeedbackResponse = {
       success: true,
       data: formattedFeedback,
       message: 'Feedback submitted successfully',
-    });
+    };
+    res.status(201).json(response);
   } catch (error) {
     next(error);
   }
