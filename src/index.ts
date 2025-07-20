@@ -16,9 +16,10 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://user-feeback-wall-frontend.vercel.app'] 
-    : ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  // origin: process.env.NODE_ENV === 'production' 
+  //   ? ['https://user-feeback-wall-frontend.vercel.app'] 
+  //   : ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
